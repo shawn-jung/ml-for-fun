@@ -1,10 +1,13 @@
+# Dash App for League of Legends Gameplay Outcome Prediction
+# Authored by Shawn Jung 
+# Last Update: 7/3/2020 
+
 import dash 
 import dash_core_components as dcc 
 import dash_html_components as html 
 import plotly.graph_objects as go 
 from dash.dependencies import Input, Output 
 import joblib 
-from scipy.special import logsumexp
 import numpy as np
 
 
@@ -94,14 +97,13 @@ def custom_predict_proba(summaries, test_row):
 
         joint_log_likelihood.append(jointi)
 
+    log_sum_exp = np.log(np.sum(np.exp(joint_log_likelihood)))
+    proba = np.exp(joint_log_likelihood - log_sum_exp)
     
-    log_prob_x = logsumexp(joint_log_likelihood)
-    log_proba = np.exp(joint_log_likelihood - log_prob_x)
-    
-    blue_win_odds = round(log_proba[1] / log_proba[0], 4)
-    red_win_odds = round(log_proba[0] / log_proba[1], 4)
-    blue_win_prob = round(blue_win_odds / (1 + blue_win_odds), 4)
-    red_win_prob = round(red_win_odds / (1 + red_win_odds), 4)
+    blue_win_odds = round(proba[1] / proba[0], 4)
+    red_win_odds = round(proba[0] / proba[1], 4)
+    blue_win_prob = round(proba[1], 4)
+    red_win_prob = round(proba[0], 4)
 
     
     if (blue_win_prob > red_win_prob):
@@ -129,15 +131,14 @@ fig.add_annotation(x=90, y=1.7, text=odds_text, showarrow=False, align='left', b
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css'] 
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
-#app = dash.Dash(__name__)
-
+app.title = 'LoL Wins Prediction'
 
 app.layout = html.Div(
     [
         html.Div(
         [
-            html.H4('LoL Winning Team Prediction'),
-            html.P('The widget below predicts the League of Legend wins based on the first 10 minutes of game data (Shawn Jung, 6/29/2020)'),
+            html.H4('League of Legends - Winning Team Prediction'),
+            html.P('This app predicts the winning team from the first 10 minutes of game data. '),
             html.A('The related blog post', href="https://shawnjung.blog/2020/06/29/league-of-legend-winning-prediction/", target='_blank'),
             html.Br(),
             
