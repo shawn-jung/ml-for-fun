@@ -1,4 +1,4 @@
 # ml-for-fun
- Machine Learning notebooks just for fun 
+ Machine Learning projects just for fun.  
 
-[League of Legends](/league_of_legend_win_prediction_first_10mins.ipynb) - Predict who will win based on first 10-minute game data
+[League of Legends](/lol_predict/README.MD) - Predict which team will win based on the first 10-minutes of game data
