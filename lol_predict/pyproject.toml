@@ -5,6 +5,7 @@ description = "League Of Legends - Winning Prediction from the First 10-minutes 
 readme = "league-of-legend-prediction.md"
 requires-python = ">=3.13"
 dependencies = [
+    "dash>=3.1.1",
     "joblib>=1.5.1",
     "matplotlib>=3.10.3",
     "numpy>=2.3.1",
@@ -20,7 +21,7 @@ dev = [
     "pandas>=2.3.1",
 ]
 
-[project.optional-dependencies] # <--- Change this line
+[project.optional-dependencies]
 dev = [
     "jupyter>=1.1.1",
     "mypy>=1.16.1",
