@@ -16,9 +16,24 @@ dependencies = [
 [dependency-groups]
 dev = [
     "jupyter>=1.1.1",
+    "mypy>=1.16.1",
+    "pandas>=2.3.1",
+]
+
+[project.optional-dependencies] # <--- Change this line
+dev = [
+    "jupyter>=1.1.1",
+    "mypy>=1.16.1",
     "pandas>=2.3.1",
 ]
 
 [tool.ruff]
 line-length = 120
 target-version = "py313"
+
+[[tool.mypy.overrides]]
+module = [
+    "plotly.*",
+    "joblib.*",
+    ]
+ignore_missing_imports = true

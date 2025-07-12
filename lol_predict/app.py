@@ -249,7 +249,7 @@ app.layout = html.Div(
                 html.Label("Towers Destroyed by Blue"),
                 dcc.Dropdown(
                     id="blueTowersDestroyed",
-                    options=[
+                    options=[ # type: ignore[arg-type]
                         {"label": "0", "value": 0},
                         {"label": "1", "value": 1},
                         {"label": "2", "value": 2},
@@ -259,7 +259,7 @@ app.layout = html.Div(
                 html.Label("Towers Destroyed by Red"),
                 dcc.Dropdown(
                     id="redTowersDestroyed",
-                    options=[
+                    options=[ # type: ignore[arg-type]
                         {"label": "0", "value": 0},
                         {"label": "1", "value": 1},
                         {"label": "2", "value": 2},
@@ -276,7 +276,7 @@ app.layout = html.Div(
                 html.Label("First Kill of The Game"),
                 dcc.RadioItems(
                     id="blueFirstBlood",
-                    options=[
+                    options=[ # type: ignore[arg-type]
                         {"label": "Blue", "value": 1},
                         {"label": "Red", "value": 0},
                     ],
@@ -324,19 +324,19 @@ app.layout = html.Div(
                 html.Label("Dragons Kill by Blue"),
                 dcc.Dropdown(
                     id="blueDragons",
-                    options=[
+                    options=[ # type: ignore[arg-type]
                         {"label": "0", "value": 0},
                         {"label": "1", "value": 1},
                         {"label": "2", "value": 2},
                         {"label": "3", "value": 3},
                         {"label": "4+", "value": 4},
                     ],
-                    multi=False,
+                    multi=False, 
                 ),
                 html.Label("Heralds Kill by Blue"),
                 dcc.Dropdown(
                     id="blueHeralds",
-                    options=[
+                    options=[ # type: ignore[arg-type]
                         {"label": "0", "value": 0},
                         {"label": "1", "value": 1},
                         {"label": "2", "value": 2},
@@ -371,7 +371,7 @@ app.layout = html.Div(
                 html.Label("Dragons Kill by Red"),
                 dcc.Dropdown(
                     id="redDragons",
-                    options=[
+                    options=[ # type: ignore[arg-type]
                         {"label": "0", "value": 0},
                         {"label": "1", "value": 1},
                         {"label": "2", "value": 2},
@@ -383,7 +383,7 @@ app.layout = html.Div(
                 html.Label("Heralds Kill by Red"),
                 dcc.Dropdown(
                     id="redHeralds",
-                    options=[
+                    options=[ # type: ignore[arg-type]
                         {"label": "0", "value": 0},
                         {"label": "1", "value": 1},
                         {"label": "2", "value": 2},
