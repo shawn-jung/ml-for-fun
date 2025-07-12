@@ -1,10 +1,10 @@
 # Dash App for League of Legends Gameplay Outcome Prediction
 # Authored by Shawn Jung 
-# Last Update: 7/3/2020 
+# Last Update: 7/12/2025
 
 import dash 
-import dash_core_components as dcc 
-import dash_html_components as html 
+from dash import dcc
+from dash import html
 import plotly.graph_objects as go 
 from dash.dependencies import Input, Output 
 import joblib 
@@ -12,13 +12,13 @@ import numpy as np
 
 
 # Load NB classifier
-nb_clf = joblib.load('model.joblib')
+nb_clf = joblib.load('serving/model.joblib')
 
 # Function to create new test data from inputs
 
 def binning(feature, bins):
     
-    if not(feature is None):
+    if feature is not None:
         digit_bin = [-float('inf')] + bins + [float('inf')]
         feature = np.digitize(feature, digit_bin, right=False) -1
         return feature 
@@ -70,7 +70,7 @@ reshaped_summary = {}
 for target in range(nb_clf.theta_.shape[0]):
     lst = []
     for feature in range(nb_clf.theta_.shape[1]):
-        lst.append((nb_clf.theta_[target][feature], nb_clf.sigma_[target][feature], nb_clf.class_count_[target]))
+        lst.append((nb_clf.theta_[target][feature], nb_clf.var_[target][feature], nb_clf.class_count_[target]))
     
     reshaped_summary[target] = lst
 
@@ -89,7 +89,7 @@ def custom_predict_proba(summaries, test_row):
         
         for i in range(len(class_summaries)):
             mean, stdev, _ = class_summaries[i]
-            if not(test_row[i] is None):
+            if test_row[i] is not None:
                 n_ij = -0.5 * np.sum(np.log(2. * np.pi * stdev))
                 n_ij -= 0.5 * np.sum(((test_row[i] - mean)**2) / stdev)
                 
@@ -349,4 +349,4 @@ def update_figure(blueWardsPlaced, blueWardsDestroyed, blueFirstBlood, blueKills
     return fig
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run(debug=True)
